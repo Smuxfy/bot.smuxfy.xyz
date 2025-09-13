@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Discord Bot Configurator</title>
+<style>
+body { font-family: Arial; background: #1e1e2f; color: #fff; text-align: center; }
+input, button { padding: 10px; margin: 5px; width: 250px; }
+button { cursor: pointer; background: #5865F2; color: #fff; border: none; border-radius: 5px; }
+</style>
+</head>
+<body>
+<h1>Discord Bot Configurator</h1>
+
+<input type="text" id="channel" placeholder="Channel ID"><br>
+<input type="text" id="message" placeholder="Message to send"><br>
+<button onclick="sendMessage()">Send Message</button>
+
+<p id="status"></p>
+
+<script>
+async function sendMessage() {
+    const channel = document.getElementById("channel").value;
+    const message = document.getElementById("message").value;
+    
+    const res = await fetch("https://YOUR-BACKEND-URL/send", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ channel, message })
+    });
+
+    const data = await res.text();
+    document.getElementById("status").innerText = data;
+}
+</script>
+</body>
+</html>
